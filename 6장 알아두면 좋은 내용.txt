@@ -1,0 +1,16 @@
+px 피겔
+dp dip
+160dpi당 한 픽셀
+
+sp 텍스트 크기를 지정할 때 사용하는 단위임.
+
+in
+mm
+em  글꼴과 상관없이 동일한 텍스트 크기 표시
+
+앱화면은 dp로
+텍스트는 sp를 권장함
+
+이미지를 배경으로 지정하는 방법
+
+android:background="@drawable/house"
