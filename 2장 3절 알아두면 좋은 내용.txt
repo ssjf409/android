@@ -1,0 +1,61 @@
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);		//R.layout.activity_main 이게 맨처음 실행하면 켜지는 xml이라고 할 수 있다. R은 res폴더를 의미함
+    }
+}
+
+
+인플레이션 : xml 레이아웃에 정의된 내용이 메모리에 로딩된 후 객체화되는 과정을 말함
+
+setContentView() 
+역할 
+1. 화면에 나타낼 뷰를 지정하는 역할
+2. XML 레이아웃의 내용을 메모리에 객체화 하는 역할
+
+전체 XML 레이아웃이 켜져 있는 상태에서 다른 일부분에 XML을 추가하는 방법
+LayoutInflater를 사용한다.
+
+시스템 서비스 : 단말이 시작되면서 항상 실행되는 서비스
+시스템 서비스의 getSystemService()로 객체를 참조한 후 사용할 수 있다.
+
+
+
+
+public class MenuActivity extends AppCompatActivity {
+    LinearLayout container;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_menu);
+
+        container = (LinearLayout) findViewById(R.id.container);
+
+        Button button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE); //getSystemService()로 객체화 시킨후
+                inflater.inflater(R.layout.sub1, container, true);  //인플레이터로 xml을 container에 올린다.
+
+                CheckBox checkBox = (CheckBox) container.findViewById(R.id.checkBox);	//container 객체 안에서 접근하게 되므로 container. 라고 꼭 붙여줘야 한다.
+                checkBox.setText("로딩이되었어요.");
+            }
+        });
+    }
+}
+//-> 이후로 메니페스트에서 MenuActivity 먼저 뜨도록 설정해야한다.
+
+LayoutInflater의 객체 inflate()메소드의 정의
+View inflate (int resource, ViewGroup root)
+첫번째 파라미터로는 XML 레이아웃 리소스, 두 번재 파라미터는 뷰들을 객체화하여 추가할 대상이 되는 부모 컨테이너를 지정
+
+객체 참조할 때, getSystemService()를 사용할 수도 있지만, LayoutInflater 클래스의 from()을 사용할 수도 있다.
+static LayoutInflater LayoutInflater.from( Context context)
+
+이외에 View 클래스 메소드로 inflate 기능 지원하는 경우
+
+static View inflate (COntext context, int resource, ViewGroup root)
